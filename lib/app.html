@@ -1,0 +1,31 @@
+<div class="ui container">
+    <div class="ui raised segment">
+        <h2>Diagnostics</h2>
+        Message: {{messages | async | json}}
+    </div>
+    <div class="ui raised segment">
+        <h2>Search for tracks</h2>
+        <form class="ui form">
+            <div class="field">
+                <label>Search</label>
+                <input type="text" [ngFormControl]="search" />
+            </div>
+        </form>
+        <ul>
+            <li *ngFor="#item of suggestions"><a href="javascript:void 0" (click)="addItem(item)">Track: {{item.name}}, Artists: {{getArtistString(item)}}</a></li>
+        </ul>
+    </div>
+    <div class="ui raised segment">
+        <h2>Playlist</h2>
+        {{selectedTrack}}
+        <ul>
+            <li *ngFor="#item of playlist">
+                Name: {{item.track.name}}, BPM: {{item.bpm}}
+                <audio autoplay *ngIf="item.track.id === selectedTrack">
+                    <source [src]="item.track.preview_url" type="audio/mp3">
+                </audio>
+            </li>
+        </ul>
+    </div>
+
+</div>
